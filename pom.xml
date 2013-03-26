@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>eu.artofcoding.callana</groupId>
+    <artifactId>callana</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>eu.artofcoding</groupId>
+        <artifactId>aoc-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <name>Call Analyzer</name>
+    <url>http://www.art-of-coding.eu/</url>
+    <inceptionYear>2013</inceptionYear>
+    <developers>
+        <developer>
+            <name>Ralf Bensmann</name>
+            <email>ralf@art-of-coding.eu</email>
+        </developer>
+    </developers>
+    <organization>
+        <name>art of coding</name>
+        <url>http://www.art-of-coding.eu/</url>
+    </organization>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>callana-cli</module>
+        <module>callana-distrib</module>
+    </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
+</project>

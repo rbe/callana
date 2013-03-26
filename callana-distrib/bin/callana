@@ -1,0 +1,7 @@
+#!/bin/sh
+
+file=$1
+odiuser=$2
+odipwd=$3
+
+java -jar lib/callana-cli-1.0.0-SNAPSHOT.jar ${file} ${odiuser} ${odipwd}
