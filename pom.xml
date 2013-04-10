@@ -2,20 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>eu.artofcoding.callana</groupId>
-    <artifactId>callana</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-
     <parent>
         <groupId>eu.artofcoding</groupId>
         <artifactId>aoc-parent</artifactId>
         <version>1.0.0</version>
     </parent>
-
+    <groupId>eu.artofcoding.callana</groupId>
+    <artifactId>callana</artifactId>
     <name>Call Analyzer</name>
+    <version>1.1.0</version>
     <url>http://www.art-of-coding.eu/</url>
     <inceptionYear>2013</inceptionYear>
     <developers>
@@ -28,32 +24,43 @@
         <name>art of coding</name>
         <url>http://www.art-of-coding.eu/</url>
     </organization>
-
     <packaging>pom</packaging>
-
     <modules>
         <module>callana-cli</module>
         <module>callana-distrib</module>
     </modules>
-    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.java.version>1.7</project.java.version>
+    </properties>
     <dependencyManagement>
         <dependencies>
+            <!-- Odisee -->
             <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
+                <groupId>eu.artofcoding.odisee</groupId>
+                <artifactId>odisee-client-java</artifactId>
+                <version>3.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.5.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
@@ -61,6 +68,38 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <!-- buildnumber-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>true</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <format>${project.version}.{0,number}</format>
+                    <items>
+                        <item>buildNumber</item>
+                    </items>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
-    
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://bitbucket.org/artofcoding/callana</url>
+    </issueManagement>
+    <scm>
+        <developerConnection>
+            scm:git:[fetch=]https://bitbucket.org/artofcoding/callana.git[push=]ssh://bitbucket.org/artofcoding/callana.git
+        </developerConnection>
+        <url>https://bitbucket.org/artofcoding/callana</url>
+    </scm>
 </project>
