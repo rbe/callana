@@ -3,10 +3,6 @@
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
     <id>dist</id>
     <formats>
-        <!--
-        <format>tar.gz</format>
-        <format>tar.bz2</format>
-        -->
         <format>zip</format>
     </formats>
     <moduleSets>
@@ -16,8 +12,13 @@
                 <include>eu.artofcoding.callana:callana-cli</include>
             </includes>
             <binaries>
-                <outputDirectory>/</outputDirectory>
-                <unpack>false</unpack>
+                <outputDirectory>classes</outputDirectory>
+                <directoryMode>0755</directoryMode>
+                <fileMode>0644</fileMode>
+                <unpack>true</unpack>
+                <includes>
+                    <include>eu.artofcoding.callana:callana-cli</include>
+                </includes>
             </binaries>
         </moduleSet>
     </moduleSets>
@@ -25,6 +26,8 @@
         <fileSet>
             <directory>${project.basedir}</directory>
             <outputDirectory>/</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
             <includes>
                 <include>README*</include>
                 <include>LICENSE*</include>
@@ -34,13 +37,20 @@
         <fileSet>
             <directory>${project.basedir}/bin</directory>
             <outputDirectory>/</outputDirectory>
-            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
         </fileSet>
     </fileSets>
     <dependencySets>
         <dependencySet>
             <outputDirectory>lib</outputDirectory>
             <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <excludes>
+                <exclude>eu.artofcoding.callana:callana-cli</exclude>
+                <exclude>eu.artofcoding.callana:callana-distrib</exclude>
+            </excludes>
         </dependencySet>
     </dependencySets>
 </assembly>
