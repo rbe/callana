@@ -63,62 +63,6 @@ public class Report {
         numberGerman.setGroupingUsed(true);
     }
 
-    private static class EvnData implements Comparable {
-
-        private String ARufnummer;
-
-        private String einwahlRufnummer;
-
-        private Date datum;
-
-        private int dauerInSekunden;
-
-        public String getARufnummer() {
-            return ARufnummer;
-        }
-
-        public void setARufnummer(String ARufnummer) {
-            this.ARufnummer = ARufnummer;
-        }
-
-        public String getEinwahlRufnummer() {
-            return einwahlRufnummer;
-        }
-
-        public void setEinwahlRufnummer(String einwahlRufnummer) {
-            this.einwahlRufnummer = einwahlRufnummer;
-        }
-
-        public Date getDatum() {
-            return datum;
-        }
-
-        public void setDatum(Date datum) {
-            this.datum = datum;
-        }
-
-        public int getDauerInSekunden() {
-            return dauerInSekunden;
-        }
-
-        public void setDauerInSekunden(int dauerInSekunden) {
-            this.dauerInSekunden = dauerInSekunden;
-        }
-
-        @Override
-        public int compareTo(Object o) {
-            if (o instanceof EvnData) {
-                EvnData e = (EvnData) o;
-                int sort1 = this.ARufnummer.compareTo(e.ARufnummer);
-                //int sort2 = this.datum.compareTo(e.datum);
-                return sort1;
-            } else {
-                return 0;
-            }
-        }
-
-    }
-
     private static void analyse(Path evn) throws IOException {
         //Path odiseeXml = Paths.get(evn.);
         // Read EVN
