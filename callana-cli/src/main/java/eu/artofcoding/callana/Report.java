@@ -121,30 +121,34 @@ public class Report {
     }
 
     private static void usage() {
-        System.out.println("usage: java -jar Callana.jar <inputfile> <Odisee user> <Odisee password>");
+        System.out.printf("usage: %s <inputfile>%n", Report.class.getName());
         System.out.println("No input file specified");
     }
 
     public static void main(String[] args) throws IOException {
         // Input: EVN
-        if (args.length == 3) {
+        if (args.length == 1) {
             String inputFilename = args[0];
-            String odiseeUsername = args[1];
-            String odiseePassword = args[2];
             Path evnInput = Paths.get(inputFilename).normalize();
             analyse(evnInput);
+            // Properties
+            Properties props = new Properties();
+            props.load(Report.class.getResourceAsStream("callana.properties"));
+            String odiseeUsername = (String) props.get("callana.odisee.user");
+            String odiseePassword = (String) props.get("callana.odisee.password");
             // Create document
             OdiseeClient client = OdiseeClient.createClient("http://service.odisee.de/odisee/document/generate", odiseeUsername, odiseePassword);
-            client.createRequest("EVN").setArchive(false, true);
+            client.createRequest("EVN");
+            client.setArchive(false, true);
             client.setUserfield("SchreibenDatum", sdfGermanDate.format(new Date())).
-                    setUserfield("Kunde", "Acme, Inc.").
-                    setUserfield("Anrede", "Herr").
-                    setUserfield("Vorname", "Max").
-                    setUserfield("Nachname", "Mustermann").
-                    setUserfield("Anschrift", "Abcstrasse 1").
-                    setUserfield("PLZ", "12345").
-                    setUserfield("Ort", "Ort").
-                    setUserfield("Betreff", "Einzelverbindungsnachweis");
+                    setUserfield("Kunde", (String) props.get("callana.kunde")).
+                    setUserfield("Anrede", (String) props.get("callana.anrede")).
+                    setUserfield("Vorname", (String) props.get("callana.vorname")).
+                    setUserfield("Nachname", (String) props.get("callana.nachname")).
+                    setUserfield("Anschrift", (String) props.get("callana.anschrift")).
+                    setUserfield("PLZ", (String) props.get("callana.plz")).
+                    setUserfield("Ort", (String) props.get("callana.ort")).
+                    setUserfield("Betreff", (String) props.get("callana.betreff"));
             if (null != fromDate && null != toDate) {
                 client.setUserfield("Zeitraum", String.format("%s bis %s", sdfGermanDate.format(fromDate), sdfGermanDate.format(toDate)));
             }
