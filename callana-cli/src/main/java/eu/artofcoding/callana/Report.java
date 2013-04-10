@@ -170,6 +170,11 @@ public class Report {
             client.setTableCellValue("EVNSumme", "B1", String.format("%s Sekunden", numberGerman.format(dauerTotal)));
             // Dauer in Minuten * 0,01 €
             client.setTableCellValue("EVNSumme", "C1", eurGerman.format(dauerTotal / 60 * 0.01));
+            // Anzahl unterschiedlicher Rufnummern
+            Set<EvnData> evnDataSet = new TreeSet<>(evnData);
+            int anzahlUnterschiedlicherRufnummern = evnDataSet.size();
+            System.out.println("Anzahl unterschiedlicher Nummern=" + anzahlUnterschiedlicherRufnummern);
+            client.setTableCellValue("EVNSumme", "B2", "" + anzahlUnterschiedlicherRufnummern);
             // Call Odisee
             try {
                 byte[] document = client.process();
