@@ -152,6 +152,7 @@ public class Report {
                     setUserfield("Vorname", (String) props.get("callana.vorname")).
                     setUserfield("Nachname", (String) props.get("callana.nachname")).
                     setUserfield("Anschrift", (String) props.get("callana.anschrift")).
+                    setUserfield("AnschriftZusatz", (String) props.get("callana.anschrift.zusatz")).
                     setUserfield("PLZ", (String) props.get("callana.plz")).
                     setUserfield("Ort", (String) props.get("callana.ort")).
                     setUserfield("Betreff", (String) props.get("callana.betreff"));
