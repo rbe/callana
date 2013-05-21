@@ -98,7 +98,7 @@ public class Report {
                     temp.setDatum(d);
                     temp.setDauerInSekunden(Integer.valueOf(dauer));
                     dauerTotal += temp.getDauerInSekunden();
-                    System.out.printf("Rufnummer=%s Datum=%s %s -> %s dauerTotal=%d%n", temp.getARufnummer(), datum, zeit, d.toString(), dauerTotal);
+                    pr(String.format("%d Rufnummer=%s Datum=%s %s -> %s dauerTotal=%d", lineCount, temp.getARufnummer(), datum, zeit, d.toString(), dauerTotal));
                     evnData.add(temp);
                 } catch (ParseException e) {
                     System.out.printf("Cannot parse, exception: %s%n", e.getMessage());
@@ -123,6 +123,10 @@ public class Report {
     private static void usage() {
         System.out.printf("usage: %s <inputfile>%n", Report.class.getName());
         System.out.println("No input file specified");
+    }
+
+    private static void pr(String s) {
+        System.out.printf("%s: %s%n", new Date(), s);
     }
 
     public static void main(String[] args) throws IOException {
@@ -173,15 +177,18 @@ public class Report {
             // Anzahl unterschiedlicher Rufnummern
             Set<EvnData> evnDataSet = new TreeSet<>(evnData);
             int anzahlUnterschiedlicherRufnummern = evnDataSet.size();
-            System.out.println("Anzahl unterschiedlicher Nummern=" + anzahlUnterschiedlicherRufnummern);
+            pr(String.format("Anzahl unterschiedlicher Nummern=%d", anzahlUnterschiedlicherRufnummern));
             client.setTableCellValue("EVNSumme", "B2", "" + anzahlUnterschiedlicherRufnummern);
             // Call Odisee
+            pr("Sende Daten zu Odisee");
             try {
                 byte[] document = client.process();
                 StreamHelper.saveToFile(document, new File(String.format("%s.pdf", inputFilename.replace('.', '_'))));
             } catch (OdiseeClientException e) {
+                pr("EXCEPTION");
                 e.printStackTrace();
             }
+            pr("Finished!");
         } else {
             usage();
         }
