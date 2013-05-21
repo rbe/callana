@@ -72,7 +72,7 @@ public class Report {
         Scanner scanner = new Scanner(evn);
         // Read every line
         int lineCount = 0;
-        EvnData temp = null;
+        EvnData temp;
         String datumUndDauer;
         Date d;
         int dauerTotal = 0;
