@@ -138,10 +138,12 @@ public class Report {
             // Properties
             Properties props = new Properties();
             props.load(Report.class.getResourceAsStream("callana.properties"));
+            String odiseeService = (String) props.get("callana.odisee.service");
             String odiseeUsername = (String) props.get("callana.odisee.user");
             String odiseePassword = (String) props.get("callana.odisee.password");
             // Create document
-            OdiseeClient client = OdiseeClient.createClient("http://service.odisee.de/odisee/document/generate", odiseeUsername, odiseePassword);
+            String serviceURL = String.format("%s/odisee/document/generate", odiseeService);
+            OdiseeClient client = OdiseeClient.createClient(serviceURL, odiseeUsername, odiseePassword);
             client.createRequest("EVN");
             client.setArchive(false, true);
             client.setUserfield("SchreibenDatum", sdfGermanDate.format(new Date())).
