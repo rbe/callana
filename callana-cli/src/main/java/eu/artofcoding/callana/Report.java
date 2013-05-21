@@ -185,8 +185,10 @@ public class Report {
             // Call Odisee
             pr("Sende Daten zu Odisee");
             try {
-                byte[] document = client.process();
-                StreamHelper.saveToFile(document, new File(String.format("%s.pdf", inputFilename.replace('.', '_'))));
+                String filename = inputFilename.replace('.', '_');
+                client.saveRequestTo(Paths.get(String.format("%s_request.xml", filename)));
+                byte[] document = client.process(false);
+                StreamHelper.saveToFile(document, new File(String.format("%s.pdf", filename)));
             } catch (OdiseeClientException e) {
                 pr("EXCEPTION");
                 e.printStackTrace();
